@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Hacking Matrix Background</title>
+  </head>
+  <style>
+    body {
+      padding: 0%;
+      margin: 0%;
+      overflow: hidden;
+    }
+  </style>
+  <body>
+    <canvas id="canvas" style="background-color: #111"></canvas>
+    <script>
+      var canvas = document.getElementById("canvas");
+      var context = canvas.getContext("2d");
+
+      var w = window.innerWidth;
+      var h = window.innerHeight;
+
+      canvas.width = w;
+      canvas.height = h;
+
+      var fontSize = 16;
+      var columns = Math.floor(w / fontSize);
+      var drops = [];
+      for (var i = 0; i < columns; i++) {
+        drops.push(0);
+      }
+
+      var str = "JavaScript Hacking Effect";
+
+      function draw() {
+        context.fillStyle = "rgba(0, 0, 0, 0.05)";
+        context.fillRect(0, 0, w, h);
+        context.font = "700 " + fontSize + "px monospace"; // Fix the typo here
+        context.fillStyle = "#00cc33";
+
+        for (var i = 0; i < columns; i++) {
+          var index = Math.floor(Math.random() * str.length);
+          var x = i * fontSize;
+          var y = drops[i] * fontSize;
+          context.fillText(str[index], x, y);
+
+          if (y >= canvas.height && Math.random() > 0.99) {
+            drops[i] = 0;
+          }
+          drops[i]++;
+        }
+
+        requestAnimationFrame(draw); // Use requestAnimationFrame for smoother animation
+      }
+      draw();
+    </script>
+  </body>
+</html>
